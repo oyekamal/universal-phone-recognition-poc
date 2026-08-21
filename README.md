@@ -35,7 +35,34 @@ curl -s "https://huggingface.co/api/datasets/anyspeech/ipapack_plus_2" \
 
 ## Example run: Sindhi (full input/output)
 
-`./venv/bin/python run_report.py sd_in` on one real IPAPack++/FLEURS test clip:
+`./venv/bin/python run_report.py sd_in` on one real IPAPack++/FLEURS test clip.
+
+**Real, unedited terminal output** (this is literally what the script prints — copy-pasted, nothing cleaned up):
+
+```
+############################  INPUT  ############################
+language:              sd_in   (utterance id: 15928284438849160824)
+audio file:            /home/oye/Documents/free_work/universal-phone-poc/samples/sd_in.wav
+spoken sentence:       جڏهن ته اڪثر ڪري اهو صرف ناقص اسٽيريوٽائپ هوندو آهي، پيرس ۾ هلڻ جو بهترين طريقو اڃا تائين پنهنجي بهترين رويي تي رهڻ آهي، ڪنهن ماڻهو وانگر عمل ڪرڻ جيڪو bien élevé بهترين پرورش ٿيل آهي. اهو پورو ڪرڻ بابت تمام آسان ٿي ويندو   <- what the speaker actually said, native script
+ground-truth IPA:      ɟaɖẽhɪ̃ t̪ʌh akəsʌr kareː ɪhoː ʂərʌf naːqʌʂ asʈiːrjoːʈaːɪp hũdoː aːhja peːrʌs haː həlʌɳ ɟoː bəhət̪riːn təriːqoː aɲaː t̪aːiːn pʌ̃hnɟi bəhət̪riːn rʋjeː t̪eː rəhʌɳ aːhja kʌ̃hɪ̃ maːɳhuː ʋaːngʌr amʌl kərʌɳ ɟeːkoː biːn eːlɛveː bəhət̪riːn pəroːrʌʃ tʰɪal aːheː ɪhoː poːroː kərʌɳ baːbɪt̪ t̪əmaːm aːsaːn tʰi ʋeːndoː    <- human-transcribed phones for that sentence (from IPAPack++)
+
+############################  OUTPUT  ############################
+[Allosaurus predicted IPA]   d͡ʒ̤ɒðɒtsʔaksʌɾkaɾajsɛliːk͡p̚uəoɴnak͡p̚ɯsɯst͡ɕiːœoɾtɒpʰoŋ̟duəaheppʲeɾesmehaɴlɛɴt͡ɕjoɾpuəɒt̪ɒɾiːɴt̪ɪɾiːkuəb̞ɒɴɲjat̪ɒɴʔɯpɒnd͡ʒepb̤ɛt̪eɾiːɴtʂɒb̞ijjet̪iːɾɒɴɒk͡p̚ɒhɛbiaɳmaɾʌnɒvɒŋɡ̤uəɾuːamal̪uɾk͡p̚ʌnɒtɕuuətʂekuəab̤ɒt̪iːɾʲijiːpaɾb̞ɾet͡ʃʲl̪lʲivuəb̞uəpuəɾuəkanɴʌb̥ʌofuəɒtɒmaŋmaʂæɴtʰib̞ɪnɴtouə
+[Allosaurus romanized]       dzhhodhots'aksurkarayseliikpuaongnakpusustshiieuortophongduaaheppyeresmehanglengtshyorpuaotoriingtiriikuabongnyyatong'upondzhepbheteriingtshobiyyetiirongokpohebianmarunovongghuaruuamalurkpunotshuuatshekuaabhotiiryiyiiparbretshyllyivuabuapuaruakanngubuofuaotomangmashangthibinngtoua
+  -> PER vs ground truth: 228/264 = 86.4%  (char-edit-distance proxy, not real PFER)
+
+[PhoneticXEUS predicted IPA] d͡ʒən̪et̪əksəɾkəɾes̪ɪɾəon̪ɑkɪs̪ɪsʈeʈɑpɦũd̪oäɦepeɾəs̪mẽɦələ̃ɳd͡ʒobɛt̪əɾĩt̪əɾikoɑnɪɑ̃t̪ɑ̃ĩpəɪ̃d͡ʒebɛt̪əɾiɾəpɪet̪eɾəɦəɳɑekəɦɛ̃bɪənmɑɳʊnʋɑɡʊɾəməlkəɳd͡ʒod͡ʒɪkoäebɛt̪ɾɪ̃ɳpəɾʋəɾəʃl̪iʋʊʋpuɾokəɾəɳbɑpət̪əmɑ̃ɑs̪ɑ̃t̪iʋĩd̪o
+[PhoneticXEUS romanized]     dzhanetaksarkaresiraonakisistetaphundoaheperasmenhalanndzhobetarintarikoaniantaninpaindzhebetarirapieterahanaekahenbianmanunvaguramalkandzhodzhikoaebetrinnparvarashlivuvpurokaranbapatamanasantivindo
+  -> PER vs ground truth: 194/264 = 73.5%  (char-edit-distance proxy, not real PFER)
+####################################################################
+NOTE: 'romanized' is a deterministic IPA->Latin-letter lookup (romanize.py)
+      so an English reader can sound it out. It is NOT a translation and
+      NOT the same as llm_p2t.py's meaning-reconstruction attempt.
+
+wrote /home/oye/Documents/free_work/universal-phone-poc/reports/sd_in.json
+```
+
+Same data, summarized:
 
 **INPUT**
 - audio file: `samples/sd_in.wav` (real Sindhi speech, from IPAPack++/FLEURS test split)
