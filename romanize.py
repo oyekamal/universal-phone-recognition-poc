@@ -127,10 +127,16 @@ def romanize_phone(phone):
     return roman + suffix
 
 
-def romanize(ipa_string):
+def romanize(ipa_string, phone_sep=""):
     """Full IPA string, space-separated by word or one run-together blob (or
     /-separated phones as in PhoneticXEUS's predicted_transcript) ->
-    (roman_text, unmapped_list). Word/phone separators are preserved."""
+    (roman_text, unmapped_list). Word/phone separators are preserved.
+
+    phone_sep: string inserted between each phone's romanization (default
+    "" for a normal word). Pass e.g. "." for a scannable syllable-spaced
+    view of a model's raw output, which has no real word boundaries at all
+    — this doesn't invent words, it just breaks up an unreadable wall of
+    letters into pronounceable chunks."""
     words = ipa_string.split(" ")
     out_words = []
     unmapped = []
@@ -146,7 +152,7 @@ def romanize(ipa_string):
                 rendered.append(f"[{p}]")
             else:
                 rendered.append(r)
-        out_words.append("".join(rendered))
+        out_words.append(phone_sep.join(rendered))
     return " ".join(out_words), unmapped
 
 

@@ -37,7 +37,47 @@ curl -s "https://huggingface.co/api/datasets/anyspeech/ipapack_plus_2" \
 
 `./venv/bin/python run_report.py sd_in` on one real IPAPack++/FLEURS test clip.
 
-**Real, unedited terminal output** (this is literally what the script prints — copy-pasted, nothing cleaned up):
+### Plain English, first
+
+**What was actually said** (ground truth, translated — this is correct, read this one):
+
+> *"Although it's often just an inaccurate stereotype, the best way to get
+> around in Paris is to keep on your best behavior — to act like someone
+> who is 'bien élevé' [well brought-up], well-mannered. That's actually
+> quite easy to do."*
+
+**What an LLM guessed from PhoneticXEUS's raw output alone** (no ground
+truth shown to it — this is wrong, read it only to see how P2T fails):
+
+> *"(Approximate) Genetics [operates through a] system that arrives [at
+> certain outcomes]; in this context, the best method [that is]
+> uncontrolled/unregulated... they say that a person's character/behavior,
+> and whoever came to do better upbringing fully, the father can do so with
+> great ease." — confidence: low*
+
+**What an LLM guessed from Allosaurus's raw output alone:**
+
+> *"(Attempted) When before the cell phone was used/charged... prayer,
+> understanding, lane thief then date three... pocket jeep battery
+> there... — confidence: low"*
+
+Both LLM guesses are **wrong** (wrong topic entirely) and honestly flagged
+`low confidence` by the LLM itself — that's expected at 74-86% phone error
+rate, not a bug. See [Stage 2](#stage-2-p2t-does-an-llm-recover-this-from-the-raw-ipa-alone)
+below for why. There is currently **no reliable way to get correct plain
+English out of the raw model output** for this clip — only the ground
+truth (which came from a human transcriber, not a model) reads correctly
+above.
+
+**The raw phone strings below have no spaces or word boundaries at all** —
+that's not a display bug, it's because Allosaurus/PhoneticXEUS are CTC
+models that predict a continuous phone stream with no "word boundary"
+concept, unlike the ground truth (which has real word spacing from the
+human transcript). Squeezing 200+ letters into one unspaced blob is exactly
+why it reads as noise — there's no fix for that at the romanization level;
+it needs the P2T stage above, which is what actually failed.
+
+### Real, unedited terminal output (this is literally what the script prints — copy-pasted, nothing cleaned up):
 
 ```
 ############################  INPUT  ############################
@@ -90,12 +130,7 @@ romanizing garbled IPA just gives you garbled-but-pronounceable syllables,
 it doesn't fix the recognition error.
 
 Full machine-readable version: [`reports/sd_in.json`](reports/sd_in.json).
-
-**Ground-truth English translation** (of what was actually said, for human
-readability — NOT a model output): *"Although it's often just an inaccurate
-stereotype, the best way to get around in Paris is to keep on your best
-behavior — to act like someone who is 'bien élevé' [well brought-up],
-well-mannered. That's actually quite easy to do."*
+(Ground-truth English translation is at the top of this section, under [Plain English, first](#plain-english-first).)
 
 ### Stage 2 (P2T): does an LLM recover this from the raw IPA alone?
 
