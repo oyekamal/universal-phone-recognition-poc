@@ -1,0 +1,5 @@
+venv/
+raw/
+*.wav
+*.mp3
+*.flac
