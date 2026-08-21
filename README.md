@@ -15,6 +15,12 @@ are run head-to-head and scored against IPAPack++'s own ground-truth IPA:
 Everything here is real: real audio, real ground-truth IPA, no mocked data.
 The one honest caveat is the *metric* — see [Results](#results) below.
 
+**The actual goal: your own audio in, meaningful text out, no dataset
+required.** Use [`recognize_any_audio.py`](#using-your-own-audio-no-ground-truth-needed)
+for that — everything else here (`run_report.py`, IPAPack++ samples) exists
+to evaluate the S2P models against a known answer, which you won't have
+for a real recording.
+
 ## Quick start
 
 ```bash
@@ -152,6 +158,53 @@ The paper's real P2T stage is a model *trained* on IPA→text pairs (T5/LoRA),
 not an LLM guessing cold — that's the gap between what's here and a working
 system. See [Next](#next).
 
+## Using your own audio (no ground truth needed)
+
+This is the actual point of the repo — you have an audio file in some
+language and want meaningful text out, with no reference transcript to
+score against:
+
+```bash
+./venv/bin/python recognize_any_audio.py path/to/your.wav --lang Pashto
+# --lang is a hint for the P2T step, not required — omit it if you don't know
+```
+
+It runs both S2P models, romanizes both outputs, then feeds each to the
+same P2T LLM step as above — no ground truth, no PER number (there's
+nothing to score against), just the model's raw guess plus its own
+self-reported confidence. Full output written to
+`reports/<filename>_p2t_report.json`.
+
+### A case where P2T actually works: Hindi
+
+Run on `samples/hi_in.wav` *as if it were a fresh unknown recording*
+(ignoring that we happen to know the real answer, for validation):
+
+- **Actual ground truth**: "स्कीइंग मार्ग को एक हाईकिंग लंबी पैदल यात्रा मार्ग जैसा ही सोचें।" — *"Think of the skiing route as similar to a long hiking trail."*
+- **PhoneticXEUS S2P → LLM P2T reconstruction** (no ground truth shown to the LLM): "स्कींग मार्ग को एक है कि लंबी पैदल यात्रा मार्ग जैसा ही सोचे" → *"Think of a skiing route as just like a long hiking trail."*
+
+**That's substantially correct** — right topic, right gist, most content
+words recovered — even though the LLM itself flagged `confidence: low`
+(it correctly identified its own weakest segment: the opening "skiing
+route" phrase). Hindi's Stage-1 PER was 39.5%, well below Sindhi/Urdu's
+73-86% — this is the direct payoff of lower phone error rate: **when S2P
+is accurate enough, zero-shot LLM P2T can recover real meaning**, no
+fine-tuned T5/LoRA model required. Compare to the same Hindi clip via
+Allosaurus (77.6% PER) in the same run: reconstruction falls apart into
+disconnected words ("Kamal... you... like this... money... is small") —
+same LLM, same technique, different Stage-1 quality, very different
+result. Full output: [`reports/hi_in_p2t_report.json`](reports/hi_in_p2t_report.json).
+
+**So, answering directly: yes, this pipeline can convert audio to
+meaningful text** — but whether the output is trustworthy depends
+entirely on Stage-1 phone error rate for that specific audio/language,
+which you won't know in advance for a truly new recording. The only
+signal available without ground truth is the LLM's self-reported
+confidence — treat `low` as "don't trust this," not as "roughly right,"
+since Sindhi/Urdu's `low`-confidence guesses above were flat-out wrong
+while Hindi's `low`-confidence guess was actually close. It's a
+conservative-but-not-perfectly-calibrated flag, not a validated score.
+
 ## Results across languages
 
 Ran on 3 languages so far, one test-split clip each:
@@ -180,6 +233,13 @@ either model's absolute quality (not valid yet — see Next).
 ## How it works
 
 ```
+recognize_any_audio.py <audio> [--lang X]  → THE actual tool: your audio,
+                                              no ground truth, S2P + P2T,
+                                              writes reports/<file>_p2t_report.json
+
+--- everything below is for evaluating the S2P models against a known
+    answer (IPAPack++), not for your own audio ---
+
 fetch_sample.py <lang_code>   → downloads one IPAPack++/FLEURS shard for
                                  that language, extracts one clip + its
                                  ground-truth IPA + orthographic transcript
@@ -196,7 +256,9 @@ llm_p2t.py reports/<x>.json   → Stage 2 (P2T): feeds each model's IPA
                                  stage, IPA text only
 ```
 
-- `fetch_sample.py`, `run_report.py`, `llm_p2t.py` — the scripts you actually run, in that order
+- `recognize_any_audio.py` — the script you actually want; takes any audio file, no dataset/ground truth involved
+- `s2p.py` — shared Allosaurus/PhoneticXEUS inference functions (used by both `run_report.py` and `recognize_any_audio.py`)
+- `fetch_sample.py`, `run_report.py`, `llm_p2t.py` — the IPAPack++-based evaluation path, in that order
 - `romanize.py` — deterministic IPA→Roman-letters transliteration (lookup table, no model, no LLM) — different from `llm_p2t.py`: this just makes phones sound-out-able, it doesn't attempt to recover meaning
 - `recognize.py` — Allosaurus S2P + a naive IPA→Latin substitution (superseded by `romanize.py`)
 - `phoneticxeus_recognize.py` — PhoneticXEUS S2P standalone

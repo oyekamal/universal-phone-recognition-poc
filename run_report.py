@@ -10,47 +10,15 @@ Writes reports/<lang_code>.json with the same data, for later use (e.g.
 by llm_p2t.py to reconstruct English text from the IPA output).
 """
 import json
-import subprocess
 import sys
 from pathlib import Path
-
-import torch
-import torchaudio
-from transformers import AutoModel
 
 from eval import levenshtein
 from fetch_sample import fetch
 from romanize import romanize
+from s2p import allosaurus_ipa, phoneticxeus_ipa
 
 REPORTS = Path(__file__).parent / "reports"
-
-
-def allosaurus_ipa(wav_path):
-    out = subprocess.run(
-        [sys.executable, "-m", "allosaurus.run", "-i", str(wav_path)],
-        capture_output=True, text=True, check=True,
-    )
-    return out.stdout.strip().replace(" ", "")
-
-
-_XEUS_MODEL = None
-
-
-def phoneticxeus_ipa(wav_path):
-    global _XEUS_MODEL
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    if _XEUS_MODEL is None:
-        _XEUS_MODEL = AutoModel.from_pretrained(
-            "changelinglab/PhoneticXeus", trust_remote_code=True
-        ).eval().to(device)
-    waveform, sr = torchaudio.load(str(wav_path))
-    if waveform.dim() == 2:
-        waveform = waveform.mean(dim=0)
-    if sr != 16000:
-        waveform = torchaudio.functional.resample(waveform, sr, 16000)
-    waveform = waveform.to(device)
-    with torch.no_grad():
-        return _XEUS_MODEL.transcribe(waveform, sampling_rate=16000)[0]["processed_transcript"]
 
 
 def per(pred, truth):
