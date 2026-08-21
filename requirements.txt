@@ -1,0 +1,7 @@
+allosaurus==1.0.2
+gTTS==2.5.4
+torch==2.13.0
+torchaudio==2.11.0
+torchcodec==0.16.0
+transformers==4.46.3
+typeguard==4.6.0

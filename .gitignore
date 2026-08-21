@@ -3,3 +3,4 @@ raw/
 *.wav
 *.mp3
 *.flac
+__pycache__/
