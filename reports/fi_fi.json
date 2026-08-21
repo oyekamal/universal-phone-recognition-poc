@@ -1,0 +1,14 @@
+{
+  "lang_code": "fi_fi",
+  "utt_id": "8113444208838751521",
+  "audio_file": "/home/oye/Documents/free_work/universal-phone-poc/samples/fi_fi.wav",
+  "input_spoken_sentence": "suurin osa valtiossa työskentelevistä puhuu italiaa myös arkikielenään mutta uskonnollisissa toimituksissa käytetään usein latinaa",
+  "input_ground_truth_ipa": "suurin osɑ vɑltiossɑ tyøskentelevistæ puhuu itɑliɑɑ myøs ɑrkikielenææn muttɑ uskonnollisissɑ toimituksissɑ kæytetææn usein lɑtinɑɑ ",
+  "input_ground_truth_romanized": "suurin osa valtiossa tüeuskentelevista puhuu italiaa müeus arkikielenaan mutta uskonnollisissa toimituksissa kaütetaan usein latinaa ",
+  "output_allosaurus_ipa": "suəɾɒjɯnɒsɒbɒl̪ldjewsat̪ɨʏs̪k͡p̚ɛɴtelʲeɟiːstt̪ɤ̆puəb̞uəʔiːtɒl̪ijjamәɛnaɾkiːkjelɒnɒɳmut̪aʔuəskɔnɴɔnl̪ɯɕiːzsʌt̪uəɒmiːduəksiːsʌkaɪðɪtanɴuəseɪlwatina",
+  "output_allosaurus_romanized": "suaroyunosobolldyewsatiuskpengtelyegyiistto[̆]puabua'iitoliyyam[ә]enarkiikyelononmuta'uaskonngonlushiizsutuaomiiduaksiisukaidhitannguaseilwatina",
+  "output_allosaurus_per": 0.7777777777777778,
+  "output_phoneticxeus_ipa": "suuriinosɑvɑltiossɑtyøskentelivistæpuhuuitɑliɑmyøsɑrkikiellenæænmuuttɑuskonnollisissɑtoimituksissɑkæytetæænuseinlɑtinɑɑ",
+  "output_phoneticxeus_romanized": "suuriinosavaltiossatüeuskentelivistapuhuuitaliamüeusarkikiellenaanmuuttauskonnollisissatoimituksissakaütetaanuseinlatinaa",
+  "output_phoneticxeus_per": 0.042735042735042736
+}

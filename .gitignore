@@ -2,4 +2,8 @@ venv/
 raw/
 *.mp3
 *.flac
+*.aac
 __pycache__/
+drive_audios/
+drive_chunks/
+reports/drive_all_output.log

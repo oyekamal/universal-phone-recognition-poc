@@ -1,0 +1,14 @@
+{
+  "lang_code": "vi_vn",
+  "utt_id": "7702082596424665893",
+  "audio_file": "/home/oye/Documents/free_work/universal-phone-poc/samples/vi_vn.wav",
+  "input_spoken_sentence": "mặt khác băng và tuyết là hiện tượng bình thường ở nhiều nước và quanh năm giao thông gần như không bị gián đoạn",
+  "input_ground_truth_ipa": "mat xak baŋ va twiət la hiənʔ tɯəŋʔ biŋ tʰɯəŋ ɤ ɲiəw nɯək va kwɛŋ nam zaw tʰoŋm ɣɤn ɲɯ xoŋm biʔ zan dwanʔ ",
+  "input_ground_truth_romanized": "mat khak bang va twiat la hian' tuang' bing thuang o nyiaw nuak va kweng nam zaw thongm ghon nyu khongm bi' zan dwan' ",
+  "output_allosaurus_ipa": "mat̪kʰɒbɒŋb̥ʌt̪il̪lɒhæt̪ɤbiɲt̪ʰɤʔaɴɲiəwlɨb̥ab̞ɤ̆ɳnɒmjouətsʰaŋjuəænɲiːʁʌɴb̥uəeɪiɴbaɾiːŋ",
+  "output_allosaurus_romanized": "matkhobongbutillohatobinytho'angnyiawlibabo[̆]nnomyouatshangyuaannyiirungbuaeiingbariing",
+  "output_allosaurus_per": 0.7804878048780488,
+  "output_phoneticxeus_ipa": "makˀxɛkbaŋvatwiətlaheəntɯənbeŋtʰɯənɤɲiwnɯəvawannamzawtʰoŋmɣanɲɯxoŋmbizandwaan",
+  "output_phoneticxeus_romanized": "mak'khekbangvatwiatlaheantuanbengthuanonyiwnuavawannamzawthongmghannyukhongmbizandwaan",
+  "output_phoneticxeus_per": 0.21951219512195122
+}

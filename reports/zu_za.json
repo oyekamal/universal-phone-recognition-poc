@@ -1,0 +1,14 @@
+{
+  "lang_code": "zu_za",
+  "utt_id": "17484934080587918442",
+  "audio_file": "/home/oye/Documents/free_work/universal-phone-poc/samples/zu_za.wav",
+  "input_spoken_sentence": "ukuba nezimoto kwabantu abaningi nakho kuholela ezigamekweni eziphakeme zezingozi emigwaqweni okuholela ekusungulweni kwezindlela ezintsha kwezempilo zokulungisa imizimba elimele",
+  "input_ground_truth_ipa": "ukuɓa nezimoto kwaɓantu aɓaniŋi nakʰo kuholela ezigamekweni ezipʰakeme zeziŋozi emigwaǃweni okuholela ekusuŋulweni kwezinɮela eziɲtʃa kwezempilo zokuluŋisa imizimba elimele ",
+  "input_ground_truth_romanized": "ukuba nezimoto kwabantu abaningi nakho kuholela ezigamekweni eziphakeme zezingozi emigwa[ǃ]weni okuholela ekusungulweni kwezin[ɮ]ela ezinytsha kwezempilo zokulungisa imizimba elimele ",
+  "output_allosaurus_ipa": "ob̞aɳezmat̪oʁob̞aɴdab̞anɪinaxuəxwolʲeskavʌðuənɪspaɡæmeðʌzʌbuəotopuəoaɾtuəeɳokʰʁuəol̪elːaɪksubɨnɨmʌs̪ʌnkeʀesentʂaɡosuəenpʲiɾəsoʁnuŋɪtsæɪɴiːs̪ɪmbaɪl̪imeɾ",
+  "output_allosaurus_romanized": "obanezmatorobangdabaniinakhuakhwolyeskavudhuanispagamedhuzubuaotopuaoartuaenokhruaolellaiksubinimusunkeresentshagosuaenpyirasornungitsaingiisimbailimer",
+  "output_allosaurus_per": 0.7290322580645161,
+  "output_phoneticxeus_ipa": "ukuɓanezimodokoɓantaɓaniŋinakʰokʰolelasikamekenezipʰakemezeziŋozemkoǃǃeniokʰolelaekisuŋlonikozinɮelazind͡ʒakozembireozokuluŋesarimizimbaelimeli",
+  "output_phoneticxeus_romanized": "ukubanezimodokobantabaninginakhokholelasikamekeneziphakemezezingozemko[ǃ][ǃ]eniokholelaekisunglonikozin[ɮ]elazindzhakozembireozokulungesarimizimbaelimeli",
+  "output_phoneticxeus_per": 0.24516129032258063
+}

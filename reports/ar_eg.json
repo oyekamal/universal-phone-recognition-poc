@@ -1,0 +1,14 @@
+{
+  "lang_code": "ar_eg",
+  "utt_id": "8063018510254830531",
+  "audio_file": "/home/oye/Documents/free_work/universal-phone-poc/samples/ar_eg.wav",
+  "input_spoken_sentence": "ومن بين أكثر الطرق شيوعاً التي تستخدم لتوضيح أهمية التنشئة الاجتماعية الاعتماد على الحالات القليلة المؤسفة للأطفال الذين عانوا من خلال الإهمال أو سوء الحظ أو الإيذاء المتعمد غير مرتبطين اجتماعياً من جانب البالغين أثناء نشأتهم",
+  "input_ground_truth_ipa": "waman biːin ʔakθara aːltˤuruq ʃujuːʕaːw aːlatajja tustaxdam lataʊdˤiːħ ʔahammeɪa aːltanaʃʃuʔa aːlidʒtimaːʕijja aːliʕtimaːd ʕalijj aːlħaːlaːt aːlqaliːla aːlmuʔsifa lilʔatˤfaːl aːllaðiːna ʕaːnuːaː min xilaːla aːlʔihmaːl ʔuː suːʔ aːlħaðˤ ʔuː aːlʔiːðaːʔ aːlmutaʕammid ɣajjara murtabtˤiːn idʒtimaːʕiːaːj min dʒaːnib aːlbaːlaɣeɪni ʔaθnaːʔa naʃʔathm ",
+  "input_ground_truth_romanized": "waman biiin 'akthara aalt[ˤ]uruq shuyuuaaaw aalatayya tustakhdam lataud[ˤ]iih 'ahammeia aaltanashshu'a aalidzhtimaaaiyya aaliatimaad aaliyy aalhaalaat aalqaliila aalmu'sifa lil'at[ˤ]faal aalladhiina aaanuuaa min khilaala aal'ihmaal 'uu suu' aalhadh[ˤ] 'uu aal'iidhaa' aalmutaaammid ghayyara murtabt[ˤ]iin idzhtimaaaiiaay min dzhaanib aalbaalagheini 'athnaa'a nash'athm ",
+  "output_allosaurus_ipa": "ajmɛnb̥ejnɑwksɛɾətʊɾʊkʁxyɑnəlɛtʰiːtəstʌʁðɛmlət̪ɔuəldiːhɻ̩hɹ̩medtɛnʃɻ̩ɹ̩ællʲt̪ʰiːmɛjɛlæt̪ʰimæt̪əɾəlhajlɛtʰəlʁɒliləmsɯvɛrlɔɹtuəɑlʲəlɛzinəɒjɳowɛnhɪlʲɪlʲilɪzmɛlɒlsuːlɪlhʌzb̥əowl̪ʔiɪzðəɪnmuːtɑnmətnɑjɾəlmɔɾt̪ʌb̞iːtʰinaktʲɪmajændwɛnɟɛnib̥iːɾb̥ɛləʁiməsnɛnɹ̩ʂɛtʰxɪm",
+  "output_allosaurus_romanized": "aymenbeynawkseraturukrkhüanalethiitasturdhemlatoualdiihrhrmedtenshrrallythiimeyelathimataralhaylethalrolilamsuverlortuaalyalezinaoynowenhilyilyilizmelolsuulilhuzbaowl'iizdhainmuutanmatnayralmortubiithinaktyimayandwengyenibiirbelarimasnenrshethkhim",
+  "output_allosaurus_per": 0.762214983713355,
+  "output_phoneticxeus_ipa": "wemenbeɪnaʔekseraturqʃeaʕnallettsteɣdamlatˤeʊdiħʔehammeʃalʔiktemaʕeaalʔeʕtmedʕelaalħalealqelllseθaalʔatˤfalallezinʕenmenxelelaalʔehmalʔewsuʔaalħezzʔewalʔizaʔaalmuteʕemedɣehirmurtˤebitinktemaʕejaminɡanebaalbaleɣinʔesnanaʃʔathim",
+  "output_phoneticxeus_romanized": "wemenbeina'ekseraturqsheaanallettsteghdamlat[ˤ]eudih'ehammeshal'iktemaaeaal'eatmedaelaalhalealqelllsethaal'at[ˤ]falallezinaenmenkhelelaal'ehmal'ewsu'aalhezz'ewal'iza'aalmuteaemedghehirmurt[ˤ]ebitinktemaaeyaminganebaalbaleghin'esnanash'athim",
+  "output_phoneticxeus_per": 0.511400651465798
+}

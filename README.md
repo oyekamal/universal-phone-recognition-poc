@@ -207,17 +207,33 @@ conservative-but-not-perfectly-calibrated flag, not a validated score.
 
 ## Results across languages
 
-Ran on 3 languages so far, one test-split clip each:
+Ran on 8 languages so far, one test-split clip each, plus 8 real long-form
+Sindhi classroom recordings (11 chunks, no ground truth) — full detail,
+including the actual P2T reconstructions and English translations for
+every case, in **[`DEEP_TESTING_REPORT.md`](DEEP_TESTING_REPORT.md)**.
 
-| Language | Allosaurus PER | PhoneticXEUS PER |
-|---|---|---|
-| Sindhi (`sd_in`) | 86.4% | 73.5% |
-| Urdu (`ur_pk`) | 79.0% | 77.3% |
-| Hindi (`hi_in`) | 77.6% | **39.5%** |
+| Language | Allosaurus PER | PhoneticXEUS PER | P2T outcome |
+|---|---|---|---|
+| Mandarin (`cmn_hans_cn`) | 55.8% | **2.7%** | Partial — right keywords, wrong sentence (tonal, PER metric misleading) |
+| Finnish (`fi_fi`) | 77.8% | **4.3%** | **Success** — correct sentence recovered |
+| Vietnamese (`vi_vn`) | 78.0% | 22.0% | Partial — right fragments, wrong assembly (no tone info) |
+| Zulu (`zu_za`) | 72.9% | 24.5% | Partial — one correct clause recovered |
+| Hindi (`hi_in`) | 77.6% | 39.5% | **Success** — correct gist recovered |
+| Arabic (`ar_eg`) | 76.2% | 51.1% | Partial — coherent gist, mostly right |
+| Sindhi (`sd_in`) | 86.4% | 73.5% | Failed — wrong topic |
+| Urdu (`ur_pk`) | 79.0% | 77.3% | Failed |
+| 11 real Sindhi classroom chunks | — | — | **11/11 failed** (no ground truth; qualitative) |
 
-**PhoneticXEUS beats Allosaurus in all 3**, sometimes by a lot (Hindi).
-Allosaurus's high error rate matches the paper's own finding: trained on
-only 12 languages, it degrades to >80% PER on languages outside that set.
+**PhoneticXEUS beats Allosaurus in every single case** — Allosaurus never
+produced a usable P2T result across all 8 languages tested. Allosaurus's
+high error rate matches the paper's own finding: trained on only 12
+languages, it degrades to >80% PER on languages outside that set.
+
+**PER doesn't cleanly predict P2T success** — Mandarin's near-perfect 2.7%
+PER still produced a wrong sentence (tonal/logographic languages break the
+char-edit-distance metric), while Finnish's 4.3% and Hindi's 39.5% both
+recovered correctly. See `DEEP_TESTING_REPORT.md` for the full breakdown
+and why.
 
 **Read the PER numbers as a rough proxy, not a benchmark score.** This is
 plain character-level Levenshtein distance between the predicted and
