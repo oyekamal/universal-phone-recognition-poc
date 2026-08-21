@@ -50,9 +50,32 @@ curl -s "https://huggingface.co/api/datasets/anyspeech/ipapack_plus_2" \
 | PhoneticXEUS | `d͡ʒən̪et̪əksəɾkəɾes̪ɪɾəon̪ɑkɪs̪ɪsʈeʈɑpɦũd̪oäɦepeɾəs̪mẽɦələ̃ɳd͡ʒobɛt̪əɾĩt̪əɾikoɑnɪɑ̃t̪ɑ̃ĩpəɪ̃d͡ʒebɛt̪əɾiɾəpɪet̪eɾəɦəɳɑekəɦɛ̃bɪənmɑɳʊnʋɑɡʊɾəməlkəɳd͡ʒod͡ʒɪkoäebɛt̪ɾɪ̃ɳpəɾʋəɾəʃl̪iʋʊʋpuɾokəɾəɳbɑpət̪əmɑ̃ɑs̪ɑ̃t̪iʋĩd̪o` | 194/264 = 73.5% |
 
 Full machine-readable version: [`reports/sd_in.json`](reports/sd_in.json).
-Note there's no P2T (phone→text) stage run here — these are raw IPA phone
-strings straight out of Stage 1, not reconstructed sentences. See
-[Next](#next).
+
+**Ground-truth English translation** (of what was actually said, for human
+readability — NOT a model output): *"Although it's often just an inaccurate
+stereotype, the best way to get around in Paris is to keep on your best
+behavior — to act like someone who is 'bien élevé' [well brought-up],
+well-mannered. That's actually quite easy to do."*
+
+### Stage 2 (P2T): does an LLM recover this from the raw IPA alone?
+
+`llm_p2t.py` feeds each model's raw predicted IPA (above) to an LLM (Claude,
+via `claude -p`, zero-shot — no fine-tuning) and asks it to reconstruct the
+sentence, with no access to the ground truth. **Short answer: no, not at
+this PER.** Full output in [`reports/sd_in_p2t.json`](reports/sd_in_p2t.json):
+
+- On PhoneticXEUS's output (73.5% PER): reconstructed guess talks about
+  "genetics," "upbringing," "character" — confidence `low`. Wrong topic
+  entirely (actual topic: Paris etiquette), though it did correctly latch
+  onto a few real word-level anchors (`hũd̪o`→"happens", `pəɾʋəɾəʃ`→"upbringing").
+- On Allosaurus's output (86.4% PER): reconstructed guess talks about "cell
+  phone battery" — confidence `low`. Also wrong topic.
+
+This is the honest result, not a cherry-picked one: **raw Stage-1 PER above
+~70% is too corrupted for zero-shot LLM P2T to recover the actual sentence.**
+The paper's real P2T stage is a model *trained* on IPA→text pairs (T5/LoRA),
+not an LLM guessing cold — that's the gap between what's here and a working
+system. See [Next](#next).
 
 ## Results across languages
 
@@ -85,14 +108,18 @@ either model's absolute quality (not valid yet — see Next).
 fetch_sample.py <lang_code>   → downloads one IPAPack++/FLEURS shard for
                                  that language, extracts one clip + its
                                  ground-truth IPA + orthographic transcript
-run_report.py <lang_code>     → runs Allosaurus and PhoneticXEUS on that
-                                 clip, prints both predicted IPA strings and
-                                 the PER vs ground truth
+run_report.py <lang_code>     → Stage 1 (S2P): runs Allosaurus and
+                                 PhoneticXEUS on that clip, prints both
+                                 predicted IPA strings + PER vs ground
+                                 truth, writes reports/<lang_code>.json
+llm_p2t.py reports/<x>.json   → Stage 2 (P2T): feeds each model's IPA
+                                 output to an LLM (claude -p) to attempt
+                                 reconstructing the sentence — no audio
+                                 involved at this stage, IPA text only
 ```
 
-- `fetch_sample.py`, `run_report.py` — the two scripts you actually run
-- `recognize.py` — Allosaurus S2P + a naive IPA→Latin substitution (**not**
-  a real phone-to-text model, just enough to see the pipeline run end to end)
+- `fetch_sample.py`, `run_report.py`, `llm_p2t.py` — the scripts you actually run, in that order
+- `recognize.py` — Allosaurus S2P + a naive IPA→Latin substitution (superseded by `llm_p2t.py` for anything beyond a quick smoke test)
 - `phoneticxeus_recognize.py` — PhoneticXEUS S2P standalone
 - `eval.py`, `eval_xeus.py` — single-model PER checks (superseded by `run_report.py`, kept for reference)
 - `make_sample.py` — dead end, gTTS has no Sindhi voice; kept as a note for languages it does support
@@ -118,9 +145,9 @@ run_report.py <lang_code>     → runs Allosaurus and PhoneticXEUS on that
    just the `transformers.AutoModel` quick-inference path used here) and use
    its `src.metrics.phone_recognition.PhoneRecognitionEvaluator` for a number
    actually comparable to the paper's.
-2. **Real Stage 2 (P2T).** Replace the naive IPA→Latin substitution in
-   `recognize.py` with a fine-tuned T5/LoRA model or an LLM prompted with
-   the IPA string — the paper's real two-stage S2P→P2T pipeline for turning
-   phones into fluent English text.
+2. **Trained P2T, not zero-shot LLM.** `llm_p2t.py`'s zero-shot LLM guess
+   fails at 70%+ PER (see above) — replace it with a model actually
+   fine-tuned on IPA→text pairs (T5/LoRA per the paper) once Stage 1 error
+   rates are low enough to make that worthwhile.
 3. **More languages / more clips per language** for a less anecdotal signal
    than "one 20-second clip."
