@@ -1,13 +1,18 @@
 """Fetch a real sample for a FLEURS language, run both S2P models
-(Allosaurus, PhoneticXEUS), and print a PER comparison against ground
-truth. This is the one script to run per language.
+(Allosaurus, PhoneticXEUS), and print an INPUT vs OUTPUT report scored
+against ground truth. This is the one script to run per language.
 
     ./venv/bin/python run_report.py sd_in
     ./venv/bin/python run_report.py ur_pk
     ./venv/bin/python run_report.py hi_in
+
+Writes reports/<lang_code>.json with the same data, for later use (e.g.
+by llm_p2t.py to reconstruct English text from the IPA output).
 """
+import json
 import subprocess
 import sys
+from pathlib import Path
 
 import torch
 import torchaudio
@@ -15,6 +20,8 @@ from transformers import AutoModel
 
 from eval import levenshtein
 from fetch_sample import fetch
+
+REPORTS = Path(__file__).parent / "reports"
 
 
 def allosaurus_ipa(wav_path):
@@ -61,21 +68,41 @@ def main():
     wav_path, meta = fetch(lang_code, split, index)
     truth = meta["ground_truth_ipa"]
 
-    print(f"=== {lang_code} ({meta['utt_id']}) ===")
-    print("orthographic:", meta["orthographic"])
-    print("ground truth IPA:", truth)
-    print()
-
     allo_pred = allosaurus_ipa(wav_path)
     allo_dist, allo_len, allo_per = per(allo_pred, truth)
-    print("Allosaurus IPA:  ", allo_pred)
-    print(f"Allosaurus PER (char-level, proxy): {allo_dist}/{allo_len} = {allo_per:.1%}")
-    print()
 
     xeus_pred = phoneticxeus_ipa(wav_path)
     xeus_dist, xeus_len, xeus_per = per(xeus_pred, truth)
-    print("PhoneticXEUS IPA:", xeus_pred)
-    print(f"PhoneticXEUS PER (char-level, proxy): {xeus_dist}/{xeus_len} = {xeus_per:.1%}")
+
+    print("############################  INPUT  ############################")
+    print(f"language:              {lang_code}   (utterance id: {meta['utt_id']})")
+    print(f"audio file:            {wav_path}")
+    print(f"spoken sentence:       {meta['orthographic']}   <- what the speaker actually said, native script")
+    print(f"ground-truth IPA:      {truth}   <- human-transcribed phones for that sentence (from IPAPack++)")
+    print()
+    print("############################  OUTPUT  ############################")
+    print("[Allosaurus predicted]", allo_pred)
+    print(f"  -> PER vs ground truth: {allo_dist}/{allo_len} = {allo_per:.1%}  (char-edit-distance proxy, not real PFER)")
+    print()
+    print("[PhoneticXEUS predicted]", xeus_pred)
+    print(f"  -> PER vs ground truth: {xeus_dist}/{xeus_len} = {xeus_per:.1%}  (char-edit-distance proxy, not real PFER)")
+    print("####################################################################")
+
+    REPORTS.mkdir(exist_ok=True)
+    report = {
+        "lang_code": lang_code,
+        "utt_id": meta["utt_id"],
+        "audio_file": str(wav_path),
+        "input_spoken_sentence": meta["orthographic"],
+        "input_ground_truth_ipa": truth,
+        "output_allosaurus_ipa": allo_pred,
+        "output_allosaurus_per": allo_per,
+        "output_phoneticxeus_ipa": xeus_pred,
+        "output_phoneticxeus_per": xeus_per,
+    }
+    report_path = REPORTS / f"{lang_code}.json"
+    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2))
+    print(f"\nwrote {report_path}")
 
 
 if __name__ == "__main__":

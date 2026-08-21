@@ -1,0 +1,11 @@
+{
+  "lang_code": "sd_in",
+  "utt_id": "15928284438849160824",
+  "audio_file": "/home/oye/Documents/free_work/universal-phone-poc/samples/sd_in.wav",
+  "input_spoken_sentence": "جڏهن ته اڪثر ڪري اهو صرف ناقص اسٽيريوٽائپ هوندو آهي، پيرس ۾ هلڻ جو بهترين طريقو اڃا تائين پنهنجي بهترين رويي تي رهڻ آهي، ڪنهن ماڻهو وانگر عمل ڪرڻ جيڪو bien élevé بهترين پرورش ٿيل آهي. اهو پورو ڪرڻ بابت تمام آسان ٿي ويندو",
+  "input_ground_truth_ipa": "ɟaɖẽhɪ̃ t̪ʌh akəsʌr kareː ɪhoː ʂərʌf naːqʌʂ asʈiːrjoːʈaːɪp hũdoː aːhja peːrʌs haː həlʌɳ ɟoː bəhət̪riːn təriːqoː aɲaː t̪aːiːn pʌ̃hnɟi bəhət̪riːn rʋjeː t̪eː rəhʌɳ aːhja kʌ̃hɪ̃ maːɳhuː ʋaːngʌr amʌl kərʌɳ ɟeːkoː biːn eːlɛveː bəhət̪riːn pəroːrʌʃ tʰɪal aːheː ɪhoː poːroː kərʌɳ baːbɪt̪ t̪əmaːm aːsaːn tʰi ʋeːndoː ",
+  "output_allosaurus_ipa": "d͡ʒ̤ɒðɒtsʔaksʌɾkaɾajsɛliːk͡p̚uəoɴnak͡p̚ɯsɯst͡ɕiːœoɾtɒpʰoŋ̟duəaheppʲeɾesmehaɴlɛɴt͡ɕjoɾpuəɒt̪ɒɾiːɴt̪ɪɾiːkuəb̞ɒɴɲjat̪ɒɴʔɯpɒnd͡ʒepb̤ɛt̪eɾiːɴtʂɒb̞ijjet̪iːɾɒɴɒk͡p̚ɒhɛbiaɳmaɾʌnɒvɒŋɡ̤uəɾuːamal̪uɾk͡p̚ʌnɒtɕuuətʂekuəab̤ɒt̪iːɾʲijiːpaɾb̞ɾet͡ʃʲl̪lʲivuəb̞uəpuəɾuəkanɴʌb̥ʌofuəɒtɒmaŋmaʂæɴtʰib̞ɪnɴtouə",
+  "output_allosaurus_per": 0.8636363636363636,
+  "output_phoneticxeus_ipa": "d͡ʒən̪et̪əksəɾkəɾes̪ɪɾəon̪ɑkɪs̪ɪsʈeʈɑpɦũd̪oäɦepeɾəs̪mẽɦələ̃ɳd͡ʒobɛt̪əɾĩt̪əɾikoɑnɪɑ̃t̪ɑ̃ĩpəɪ̃d͡ʒebɛt̪əɾiɾəpɪet̪eɾəɦəɳɑekəɦɛ̃bɪənmɑɳʊnʋɑɡʊɾəməlkəɳd͡ʒod͡ʒɪkoäebɛt̪ɾɪ̃ɳpəɾʋəɾəʃl̪iʋʊʋpuɾokəɾəɳbɑpət̪əmɑ̃ɑs̪ɑ̃t̪iʋĩd̪o",
+  "output_phoneticxeus_per": 0.7348484848484849
+}

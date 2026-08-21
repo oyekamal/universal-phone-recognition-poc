@@ -33,7 +33,28 @@ curl -s "https://huggingface.co/api/datasets/anyspeech/ipapack_plus_2" \
   | python3 -c "import json,sys; d=json.load(sys.stdin); print(sorted(set(s['rfilename'].split('/')[1].rsplit('-',1)[0] for s in d['siblings'] if s['rfilename'].startswith('fleurs_shar/'))))"
 ```
 
-## Results
+## Example run: Sindhi (full input/output)
+
+`./venv/bin/python run_report.py sd_in` on one real IPAPack++/FLEURS test clip:
+
+**INPUT**
+- audio file: `samples/sd_in.wav` (real Sindhi speech, from IPAPack++/FLEURS test split)
+- spoken sentence (native script, ground truth): `جڏهن ته اڪثر ڪري اهو صرف ناقص اسٽيريوٽائپ هوندو آهي، پيرس ۾ هلڻ جو بهترين طريقو اڃا تائين پنهنجي بهترين رويي تي رهڻ آهي، ڪنهن ماڻهو وانگر عمل ڪرڻ جيڪو bien élevé بهترين پرورش ٿيل آهي. اهو پورو ڪرڻ بابت تمام آسان ٿي ويندو`
+- ground-truth IPA (human-transcribed, what a correct S2P model should output): `ɟaɖẽhɪ̃ t̪ʌh akəsʌr kareː ɪhoː ʂərʌf naːqʌʂ asʈiːrjoːʈaːɪp hũdoː aːhja peːrʌs haː həlʌɳ ɟoː bəhət̪riːn təriːqoː aɲaː t̪aːiːn pʌ̃hnɟi bəhət̪riːn rʋjeː t̪eː rəhʌɳ aːhja kʌ̃hɪ̃ maːɳhuː ʋaːngʌr amʌl kərʌɳ ɟeːkoː biːn eːlɛveː bəhət̪riːn pəroːrʌʃ tʰɪal aːheː ɪhoː poːroː kərʌɳ baːbɪt̪ t̪əmaːm aːsaːn tʰi ʋeːndoː`
+
+**OUTPUT**
+
+| Model | Predicted IPA | PER vs ground truth |
+|---|---|---|
+| Allosaurus | `d͡ʒ̤ɒðɒtsʔaksʌɾkaɾajsɛliːk͡p̚uəoɴnak͡p̚ɯsɯst͡ɕiːœoɾtɒpʰoŋ̟duəaheppʲeɾesmehaɴlɛɴt͡ɕjoɾpuəɒt̪ɒɾiːɴt̪ɪɾiːkuəb̞ɒɴɲjat̪ɒɴʔɯpɒnd͡ʒepb̤ɛt̪eɾiːɴtʂɒb̞ijjet̪iːɾɒɴɒk͡p̚ɒhɛbiaɳmaɾʌnɒvɒŋɡ̤uəɾuːamal̪uɾk͡p̚ʌnɒtɕuuətʂekuəab̤ɒt̪iːɾʲijiːpaɾb̞ɾet͡ʃʲl̪lʲivuəb̞uəpuəɾuəkanɴʌb̥ʌofuəɒtɒmaŋmaʂæɴtʰib̞ɪnɴtouə` | 228/264 = 86.4% |
+| PhoneticXEUS | `d͡ʒən̪et̪əksəɾkəɾes̪ɪɾəon̪ɑkɪs̪ɪsʈeʈɑpɦũd̪oäɦepeɾəs̪mẽɦələ̃ɳd͡ʒobɛt̪əɾĩt̪əɾikoɑnɪɑ̃t̪ɑ̃ĩpəɪ̃d͡ʒebɛt̪əɾiɾəpɪet̪eɾəɦəɳɑekəɦɛ̃bɪənmɑɳʊnʋɑɡʊɾəməlkəɳd͡ʒod͡ʒɪkoäebɛt̪ɾɪ̃ɳpəɾʋəɾəʃl̪iʋʊʋpuɾokəɾəɳbɑpət̪əmɑ̃ɑs̪ɑ̃t̪iʋĩd̪o` | 194/264 = 73.5% |
+
+Full machine-readable version: [`reports/sd_in.json`](reports/sd_in.json).
+Note there's no P2T (phone→text) stage run here — these are raw IPA phone
+strings straight out of Stage 1, not reconstructed sentences. See
+[Next](#next).
+
+## Results across languages
 
 Ran on 3 languages so far, one test-split clip each:
 
