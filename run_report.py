@@ -20,6 +20,7 @@ from transformers import AutoModel
 
 from eval import levenshtein
 from fetch_sample import fetch
+from romanize import romanize
 
 REPORTS = Path(__file__).parent / "reports"
 
@@ -80,13 +81,21 @@ def main():
     print(f"spoken sentence:       {meta['orthographic']}   <- what the speaker actually said, native script")
     print(f"ground-truth IPA:      {truth}   <- human-transcribed phones for that sentence (from IPAPack++)")
     print()
+    allo_roman, allo_unmapped = romanize(allo_pred)
+    xeus_roman, xeus_unmapped = romanize(xeus_pred)
+
     print("############################  OUTPUT  ############################")
-    print("[Allosaurus predicted]", allo_pred)
+    print("[Allosaurus predicted IPA]  ", allo_pred)
+    print("[Allosaurus romanized]      ", allo_roman)
     print(f"  -> PER vs ground truth: {allo_dist}/{allo_len} = {allo_per:.1%}  (char-edit-distance proxy, not real PFER)")
     print()
-    print("[PhoneticXEUS predicted]", xeus_pred)
+    print("[PhoneticXEUS predicted IPA]", xeus_pred)
+    print("[PhoneticXEUS romanized]    ", xeus_roman)
     print(f"  -> PER vs ground truth: {xeus_dist}/{xeus_len} = {xeus_per:.1%}  (char-edit-distance proxy, not real PFER)")
     print("####################################################################")
+    print("NOTE: 'romanized' is a deterministic IPA->Latin-letter lookup (romanize.py)")
+    print("      so an English reader can sound it out. It is NOT a translation and")
+    print("      NOT the same as llm_p2t.py's meaning-reconstruction attempt.")
 
     REPORTS.mkdir(exist_ok=True)
     report = {
@@ -95,9 +104,12 @@ def main():
         "audio_file": str(wav_path),
         "input_spoken_sentence": meta["orthographic"],
         "input_ground_truth_ipa": truth,
+        "input_ground_truth_romanized": romanize(truth)[0],
         "output_allosaurus_ipa": allo_pred,
+        "output_allosaurus_romanized": allo_roman,
         "output_allosaurus_per": allo_per,
         "output_phoneticxeus_ipa": xeus_pred,
+        "output_phoneticxeus_romanized": xeus_roman,
         "output_phoneticxeus_per": xeus_per,
     }
     report_path = REPORTS / f"{lang_code}.json"

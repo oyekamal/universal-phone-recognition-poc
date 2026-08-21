@@ -1,0 +1,14 @@
+{
+  "lang_code": "ur_pk",
+  "utt_id": "10876148549865067608",
+  "audio_file": "/home/oye/Documents/free_work/universal-phone-poc/samples/ur_pk.wav",
+  "input_spoken_sentence": "اس نے مزید کہا کہ تاہم ان سے اس ذمہ داری کا نا پوچھا جائے جو ان کی ترقی کے مرحلے فرض اور صلاحییتوں سے آگے بڑھ گئے ہیں",
+  "input_ground_truth_ipa": "ɪs neː məziːd kʌhaː ke taːham ɪn seː ɪs zɪma daːri kaː naː puːcʰaː ɟaːeː ɟoː ɪn ki taraqi keː marhaleː farz ɔr ʂəlaːhiiːtõ seː aːgeː barh gaeː hẽ ",
+  "input_ground_truth_romanized": "is nee maziid kuhaa ke taaham in see is zima daari kaa naa puukyhaa gyaaee gyoo in ki taraqi kee marhalee farz or shalaahiiiton see aagee barh gaee hen ",
+  "output_allosaurus_ipa": "fanɪzlʲɯməziːt̪kɑɻ̩gɪtʰɪnsɻ̩ɪzðɯmət̪ɒɾʲikɑnɑb̥uəltɒdɒt̪dœɹɪngɟɛtʰðæɾəkigiːnmajhɛlɪkfɔɾðɹ̩səlaɲjut̪ows̪ɪtʰɒgɹ̩b̥aɾikejɪs",
+  "output_allosaurus_romanized": "fanizlyumaziitkargithinsrizdhumatoryikanabualtodotdeuringgyethdharakigiinmayhelikfordhrsalanyyutowsithogrbarikeyis",
+  "output_allosaurus_per": 0.7899159663865546,
+  "output_phoneticxeus_ipa": "t̪äɦmɪs̪n̪eməzit̪käɦäkeɪ̃n̪s̪eɪs̪t̪eməd̪äɾikän̪äput͡ʃʰäd͡ʒäd͡ʒoɪ̃n̪kit̪əɾəkʰikeməɾɦəl̪epʰɔɾd͡ʒɔɾs̪əl̪äɦit̪õs̪eäɡebəɽkəɦɛ̃",
+  "output_phoneticxeus_romanized": "tahmisnemazitkahakeinnseistemadarikanaputshhadzhadzhoinnkitarakhikemarhalephordzhorsalahitonseagebarkahen",
+  "output_phoneticxeus_per": 0.773109243697479
+}

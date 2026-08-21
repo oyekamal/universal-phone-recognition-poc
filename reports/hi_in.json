@@ -1,0 +1,14 @@
+{
+  "lang_code": "hi_in",
+  "utt_id": "7251883826251297781",
+  "audio_file": "/home/oye/Documents/free_work/universal-phone-poc/samples/hi_in.wav",
+  "input_spoken_sentence": "स्कीइंग मार्ग को एक हाईकिंग लंबी पैदल यात्रा मार्ग जैसा ही सोचें।",
+  "input_ground_truth_ipa": "s̪kiːɪ̃ŋg maɾg koː eːk ɦaiːkɪ̃ŋg l̪ə̃mbiː pɛːd̪əl̪ jat̪ɾa maɾg dʒɛːs̪a ɦiː s̪oːtʃẽn̪uː ",
+  "input_ground_truth_romanized": "skiiinngg marg koo eek haiikinngg lanmbii peedal yatra marg dzheesa hii sootshennuu ",
+  "output_allosaurus_ipa": "k̟ʲɪmalzʁɔɛtuːʁʀaɪsk̟ʲɪmlʲʌmlʲizaɪsəlʲealsamalʲtsiːpʲɛsðaɪhezotʲi",
+  "output_allosaurus_romanized": "kyimalzroetuurraiskyimlyumlyizaisalyealsamalytsiipyesdhaihezotyi",
+  "output_allosaurus_per": 0.7763157894736842,
+  "output_phoneticxeus_ipa": "s̪kiŋmäɾkoekɦäɪkɪ̃ml̪ə̃mbipɛɦt̪əl̪jät̪ɾämäɾɡd͡ʒɛs̪äɦis̪ot͡ʃe",
+  "output_phoneticxeus_romanized": "skingmarkoekhaikinmlanmbipehtalyatramargdzhesahisotshe",
+  "output_phoneticxeus_per": 0.39473684210526316
+}

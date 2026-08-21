@@ -44,10 +44,23 @@ curl -s "https://huggingface.co/api/datasets/anyspeech/ipapack_plus_2" \
 
 **OUTPUT**
 
-| Model | Predicted IPA | PER vs ground truth |
-|---|---|---|
-| Allosaurus | `d͡ʒ̤ɒðɒtsʔaksʌɾkaɾajsɛliːk͡p̚uəoɴnak͡p̚ɯsɯst͡ɕiːœoɾtɒpʰoŋ̟duəaheppʲeɾesmehaɴlɛɴt͡ɕjoɾpuəɒt̪ɒɾiːɴt̪ɪɾiːkuəb̞ɒɴɲjat̪ɒɴʔɯpɒnd͡ʒepb̤ɛt̪eɾiːɴtʂɒb̞ijjet̪iːɾɒɴɒk͡p̚ɒhɛbiaɳmaɾʌnɒvɒŋɡ̤uəɾuːamal̪uɾk͡p̚ʌnɒtɕuuətʂekuəab̤ɒt̪iːɾʲijiːpaɾb̞ɾet͡ʃʲl̪lʲivuəb̞uəpuəɾuəkanɴʌb̥ʌofuəɒtɒmaŋmaʂæɴtʰib̞ɪnɴtouə` | 228/264 = 86.4% |
-| PhoneticXEUS | `d͡ʒən̪et̪əksəɾkəɾes̪ɪɾəon̪ɑkɪs̪ɪsʈeʈɑpɦũd̪oäɦepeɾəs̪mẽɦələ̃ɳd͡ʒobɛt̪əɾĩt̪əɾikoɑnɪɑ̃t̪ɑ̃ĩpəɪ̃d͡ʒebɛt̪əɾiɾəpɪet̪eɾəɦəɳɑekəɦɛ̃bɪənmɑɳʊnʋɑɡʊɾəməlkəɳd͡ʒod͡ʒɪkoäebɛt̪ɾɪ̃ɳpəɾʋəɾəʃl̪iʋʊʋpuɾokəɾəɳbɑpət̪əmɑ̃ɑs̪ɑ̃t̪iʋĩd̪o` | 194/264 = 73.5% |
+| Model | Predicted IPA | Romanized (English-readable, `romanize.py`) | PER vs ground truth |
+|---|---|---|---|
+| *(ground truth)* | `ɟaɖẽhɪ̃ t̪ʌh akəsʌr kareː ɪhoː ʂərʌf naːqʌʂ...` | `gyadenhin tuh akasur karee ihoo sharuf naaqush...` | — |
+| Allosaurus | `d͡ʒ̤ɒðɒtsʔaksʌɾkaɾajsɛliːk͡p̚uəoɴnak͡p̚ɯsɯst͡ɕiːœoɾtɒpʰoŋ̟duəaheppʲeɾesmehaɴlɛɴt͡ɕjoɾpuəɒt̪ɒɾiːɴt̪ɪɾiːkuəb̞ɒɴɲjat̪ɒɴʔɯpɒnd͡ʒepb̤ɛt̪eɾiːɴtʂɒb̞ijjet̪iːɾɒɴɒk͡p̚ɒhɛbiaɳmaɾʌnɒvɒŋɡ̤uəɾuːamal̪uɾk͡p̚ʌnɒtɕuuətʂekuəab̤ɒt̪iːɾʲijiːpaɾb̞ɾet͡ʃʲl̪lʲivuəb̞uəpuəɾuəkanɴʌb̥ʌofuəɒtɒmaŋmaʂæɴtʰib̞ɪnɴtouə` | `dzhhodhots'aksurkarayseliikpuaongnakpusustshiieuortophongduaaheppyeresmehanglengtshyorpuaotoriingtiriikuabongnyyatong'upondzhepbheteriingtshobiyyetiirongokpohebianmarunovongghuaruuamalurkpunotshuuatshekuaabhotiiryiyiiparbretshyllyivuabuapuaruakanngubuofuaotomangmashangthibinngtoua` | 228/264 = 86.4% |
+| PhoneticXEUS | `d͡ʒən̪et̪əksəɾkəɾes̪ɪɾəon̪ɑkɪs̪ɪsʈeʈɑpɦũd̪oäɦepeɾəs̪mẽɦələ̃ɳd͡ʒobɛt̪əɾĩt̪əɾikoɑnɪɑ̃t̪ɑ̃ĩpəɪ̃d͡ʒebɛt̪əɾiɾəpɪet̪eɾəɦəɳɑekəɦɛ̃bɪənmɑɳʊnʋɑɡʊɾəməlkəɳd͡ʒod͡ʒɪkoäebɛt̪ɾɪ̃ɳpəɾʋəɾəʃl̪iʋʊʋpuɾokəɾəɳbɑpət̪əmɑ̃ɑs̪ɑ̃t̪iʋĩd̪o` | `dzhanetaksarkaresiraonakisistetaphundoaheperasmenhalanndzhobetarintarikoaniantaninpaindzhebetarirapieterahanaekahenbianmanunvaguramalkandzhodzhikoaebetrinnparvarashlivuvpurokaranbapatamanasantivindo` | 194/264 = 73.5% |
+
+`romanize.py` is a **deterministic symbol lookup** (~90 base IPA segments,
+diacritics/length/affricates handled by stripping/digraph rules) — no LLM,
+no guessing, no meaning. It just spells out how the phones sound in Roman
+letters, the same idea as "Tokyo" romanizing 東京: you can sound it out even
+though it isn't itself an English word. Notice the ground truth's romanized
+form reads close to actual Sindhi ("bahatriin", "aahya", "vaangur") — an
+Urdu/Hindi/Sindhi speaker would recognize real words in there. The model
+outputs' romanized forms are readable as *sounds* but don't form real words,
+because the underlying IPA prediction itself is ~74-86% wrong (see PER) —
+romanizing garbled IPA just gives you garbled-but-pronounceable syllables,
+it doesn't fix the recognition error.
 
 Full machine-readable version: [`reports/sd_in.json`](reports/sd_in.json).
 
@@ -110,16 +123,20 @@ fetch_sample.py <lang_code>   → downloads one IPAPack++/FLEURS shard for
                                  ground-truth IPA + orthographic transcript
 run_report.py <lang_code>     → Stage 1 (S2P): runs Allosaurus and
                                  PhoneticXEUS on that clip, prints both
-                                 predicted IPA strings + PER vs ground
-                                 truth, writes reports/<lang_code>.json
+                                 predicted IPA strings, a romanized
+                                 (English-readable) version of each via
+                                 romanize.py, + PER vs ground truth,
+                                 writes reports/<lang_code>.json
 llm_p2t.py reports/<x>.json   → Stage 2 (P2T): feeds each model's IPA
                                  output to an LLM (claude -p) to attempt
-                                 reconstructing the sentence — no audio
-                                 involved at this stage, IPA text only
+                                 reconstructing the sentence's actual
+                                 meaning — no audio involved at this
+                                 stage, IPA text only
 ```
 
 - `fetch_sample.py`, `run_report.py`, `llm_p2t.py` — the scripts you actually run, in that order
-- `recognize.py` — Allosaurus S2P + a naive IPA→Latin substitution (superseded by `llm_p2t.py` for anything beyond a quick smoke test)
+- `romanize.py` — deterministic IPA→Roman-letters transliteration (lookup table, no model, no LLM) — different from `llm_p2t.py`: this just makes phones sound-out-able, it doesn't attempt to recover meaning
+- `recognize.py` — Allosaurus S2P + a naive IPA→Latin substitution (superseded by `romanize.py`)
 - `phoneticxeus_recognize.py` — PhoneticXEUS S2P standalone
 - `eval.py`, `eval_xeus.py` — single-model PER checks (superseded by `run_report.py`, kept for reference)
 - `make_sample.py` — dead end, gTTS has no Sindhi voice; kept as a note for languages it does support
